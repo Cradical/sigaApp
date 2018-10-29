@@ -30,6 +30,7 @@ export default class HomeScreen extends React.Component {
               }
               style={styles.welcomeImage}
             />
+            <Text style={styles.userInfo}>Siga User</Text>
             <Text style={styles.contentContainer}>Product Information</Text>
               <MonoText>Text about products</MonoText>
             <Text style={styles.contentContainer}>IoT Device Information</Text> 
@@ -37,13 +38,13 @@ export default class HomeScreen extends React.Component {
           </View>
         </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
+        {/* <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
 
           <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
             <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
           </View>
-        </View>
+        </View> */}
       </View>
     );
   }
@@ -107,7 +108,6 @@ const styles = StyleSheet.create({
     height: 80,
     resizeMode: 'contain',
     marginTop: 3,
-    marginLeft: -10,
   },
   getStartedContainer: {
     alignItems: 'center',
@@ -169,4 +169,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  userInfo: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center'
+  }
 });
