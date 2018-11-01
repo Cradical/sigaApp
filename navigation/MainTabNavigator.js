@@ -26,6 +26,7 @@ HomeStack.navigationOptions = {
   ),
 };
 
+
 const DeviceStack = createStackNavigator({
   Devices: DeviceScreen,
 })
