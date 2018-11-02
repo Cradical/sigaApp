@@ -14,8 +14,8 @@ export default class DeviceScreen extends React.Component {
   state = {
       channel: [],
       feeds: [],
-      test: 'test',
-      isHidden: true
+      status: false,
+      logs: []  
   }
 
   componentDidMount() {
@@ -27,13 +27,15 @@ export default class DeviceScreen extends React.Component {
       }))
   }
 
-  onPressConsole() {
-      console.log('clicked')
+  toggleLogVerification = () => {
+    if(this.state.status == true){
+        this.setState({ status : false })
+    } else {
+        this.setState({ status : true })
+    }
   }
   
   render() {
-    console.log('feeds: ', this.state.feeds)
-    console.log(this.state.isHidden)
     return (
     <View style={styles.bodyContainer}>
             <Text style={styles.basicContentStyling}>{this.state.channel.name}</Text>
@@ -48,7 +50,7 @@ export default class DeviceScreen extends React.Component {
             })}</Text>
         </View>
         <Button
-            onPress={this.onPressConsole}
+            onPress={this.toggleLogVerification}
             icon={
                 <Icon
                 name='arrow-right'
@@ -57,11 +59,13 @@ export default class DeviceScreen extends React.Component {
                 />
             }
             iconRight
-            title='BUTTON WITH RIGHT ICON'
+            title='VERIFY TRANSIT VARIABLES'
         />
-        {/* <View> */}
-        {/* {!this.state.isHidden ? <Text style={styles.basicContentStyling}>Toggled Box</Text> : null} */}
-        {/* </View> */}
+        <View style={styles.logVerifyContainer}>
+            {
+                this.state.status ? <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Product Verified!!</Text> : null
+            }
+        </View>
     </View>
         )
   }
@@ -87,7 +91,8 @@ const styles = StyleSheet.create({
     basicContentStyling: {
         textAlign: 'center',
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        
     },
     sensorReadingStyling: {
         display: 'flex',
@@ -102,6 +107,11 @@ const styles = StyleSheet.create({
     smallText: {
         textAlign: 'center',
         fontSize: 10
+    },
+    logVerifyContainer: {
+        justifyContent: 'center',
+        flex: 1,
+        margin: 10
     }
 
 })
