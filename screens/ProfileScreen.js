@@ -6,10 +6,13 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import { List, ListItem } from 'react-native-elements'  
+
 import { WebBrowser } from 'expo';
+import { Button } from 'react-native-elements'
+import { MonoText } from '../components/StyledText';
+
 
 
 export default class ProfileScreen extends React.Component {
@@ -18,15 +21,21 @@ export default class ProfileScreen extends React.Component {
   };
 
   state = {
-    certifications: ['Fair Trade', 'Organic', 'Non-GMO']
+    profileInfo: {
+      Name: 'Conrad Wright',
+      Location: 'Durango, CO',
+      Farm_size: '12 arcs.',
+      Certifications: ['Fair Trade', 'Organic', 'Non-GMO']
+    }
   }
 
   onPressConsole() {
     console.log('click')
   }
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
+
+    const profileInfo = this.state.profileInfo
+
     return (
       <ScrollView style={styles.container}>
         <View style={styles.container}>
@@ -39,25 +48,25 @@ export default class ProfileScreen extends React.Component {
               style={styles.profileImage}
             />
           <View style={styles.profileContainer}>
-            <Text style={styles.profileContent}>Name: Bill Harrison</Text>
-            <Text style={styles.profileContent}>Location: Durango, CO</Text>
-            <Text style={styles.profileContent}>Farm Size: 12 arcs.</Text>
+            <Text style={styles.profileContent}>Name: <Text>{profileInfo.Name}</Text></Text>
+            <Text style={styles.profileContent}>Location: <MonoText>{profileInfo.Location}</MonoText></Text>
+            <Text style={styles.profileContent}>Farm Size: <MonoText>{profileInfo.Farm_size}</MonoText></Text>
             <Text style={styles.profileContent}>Certifications:</Text>
+            <View>{profileInfo.Certifications.map((item, i) => {
+              return(
+                <Text style={{ fontSize: 15, fontWeight: '700', textAlign: 'left', marginLeft: 105 }} key={i}> 🥕 {item} </Text>
+              )
+            })}</View>
           </View>
-            <List>
-              {
-                this.state.certifications.map((item, i) => {
-                  return (
-                    <ListItem
-                      key={i}
-                      title={item}
-                      subtitle="By USDA"
-                      onPress={this.onPressConsole}
-                      />
-                  )
-                })
-              }           
-            </List>
+          <TouchableOpacity style={styles.bottonConfig}>
+            <Button
+              icon={{name: 'user', type: 'font-awesome'}}
+              title='Edit Profile' 
+              onPress={this.onPressConsole}
+              backgroundColor='#29bbea'
+              rounded={true}
+              />
+          </TouchableOpacity>
         </View>
       </ScrollView>
     );
@@ -80,7 +89,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     flexBasis: 100,
-    margin: 15
+    margin: 15,
+    marginBottom: 10
 },
   profileImage: {
     display: 'flex',
@@ -89,18 +99,22 @@ const styles = StyleSheet.create({
     height: 130,
     resizeMode: 'contain',
     marginTop: 3,
-    marginRight: 10,
     alignSelf: 'center',
 },
   profileContent: {
     display: 'flex',
-    // flex: 1,
     flexDirection: 'column',
     flexBasis: 100,
     flexWrap: 'wrap',
-    textAlign: 'left',
+    textAlign: 'center',
     fontSize: 20,
-    fontWeight: 'bold', 
-    margin: 7
+    fontWeight: 'bold',
+    margin: 5
 },
+  bottonConfig: {
+    width: 175,
+    height: 50,
+    marginTop: 20,
+    alignSelf: 'center'
+  }
 });

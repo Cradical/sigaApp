@@ -1,6 +1,10 @@
 import React from 'react';
-import { AppRegistry, Text, StyleSheet, View, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { AppRegistry, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { WebView } from 'react-native'
+import { Button } from 'react-native-elements'
+import CheckAnimation from './CheckAnimation'
+
+
 
 
 const sensorDataAPI = 'https://api.thingspeak.com/channels/615687/feeds.json?results=1'
@@ -49,21 +53,19 @@ export default class DeviceScreen extends React.Component {
                 return <Text style={{fontSize: 50, fontWeight: 'bold', textAlign: 'auto'}} key={i}>{item.field1}</Text>
             })}</Text>
         </View>
-        <Button
-            onPress={this.toggleLogVerification}
-            icon={
-                <Icon
-                name='arrow-right'
-                size={15}
-                color='white'
-                />
-            }
-            iconRight
-            title='VERIFY TRANSIT VARIABLES'
-        />
+        <TouchableOpacity style={styles.bottonConfig}>
+            <Button
+              icon={{name: 'check', type: 'font-awesome'}}
+              title='Verify Product' 
+              onPress={this.toggleLogVerification}
+              backgroundColor='#29bbea'
+              rounded={true}
+              />
+          </TouchableOpacity>
         <View style={styles.logVerifyContainer}>
             {
-                this.state.status ? <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Product Verified!!</Text> : null
+                this.state.status ? 
+                <CheckAnimation /> : null
             }
         </View>
     </View>
@@ -111,7 +113,12 @@ const styles = StyleSheet.create({
     logVerifyContainer: {
         justifyContent: 'center',
         flex: 1,
-        margin: 10
+    },
+    bottonConfig: {
+        width: 175,
+        height: 50,
+        marginTop: 10,
+        alignSelf: 'center'
     }
 
 })

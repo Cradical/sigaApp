@@ -17,6 +17,15 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
+  state = {
+    products: ['Coffee', 'Talapia'],
+    iot_devices: '#1560A',
+    userProfile: {
+      first_name: 'Conrad'
+    },
+    status: 'Active'
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -30,21 +39,21 @@ export default class HomeScreen extends React.Component {
               }
               style={styles.welcomeImage}
             />
-            <Text style={styles.userInfo}>Siga User</Text>
-            <Text style={styles.contentContainer}>Product Information</Text>
-              <MonoText>Text about products</MonoText>
-            <Text style={styles.contentContainer}>IoT Device Information</Text> 
-              <MonoText>Text about IoT Device</MonoText>
+            <View style={styles.contentContainer}>
+              <Text style={styles.greeting}>Hi, {this.state.userProfile.first_name}!</Text>
+              <Text style={styles.greetingSubtitle}>Welcome to Siga</Text>
+            </View>
+            <Text style={styles.titleDisplay}>Your Products:</Text>
+              <View>{this.state.products.map((product, i) => {
+                return (
+                  <MonoText style={styles.infoDisplay} key={i}> 🥕 {product}</MonoText>
+                )
+              })}</View>
+            <Text style={styles.titleDisplay}>Your IoT Device:</Text> 
+              <MonoText style={styles.infoDisplay}>Device_ID: {this.state.iot_devices}</MonoText>
+              <MonoText style={styles.infoDisplay}>Status: {this.state.status}</MonoText>
           </View>
         </ScrollView>
-
-        {/* <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View> */}
       </View>
     );
   }
@@ -104,10 +113,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: 150,
+    height: 130,
+    paddingTop: 40,
     resizeMode: 'contain',
-    marginTop: 3,
   },
   getStartedContainer: {
     alignItems: 'center',
@@ -173,5 +182,31 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     textAlign: 'center'
+  },
+  titleDisplay: {
+    fontSize: 25,
+    textAlign: 'center',
+    paddingTop: 30,
+    paddingBottom: 5
+  },
+  infoDisplay: {
+    fontSize: 17,
+    fontWeight: '400'
+  },
+  greeting: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    fontFamily: 'serif',
+    textAlign: 'center'
+
+  },
+  greetingSubtitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    fontFamily: 'serif',
+    textAlign: 'center',
+    marginBottom: 5,
+    borderBottomWidth: 2,
+    borderColor: 'grey'
   }
 });
