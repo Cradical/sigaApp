@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native'
-import { Button } from 'react-native-elements'
+import { Button, Icon } from 'react-native-elements'
 import CheckAnimation from './CheckAnimation'
 
 
@@ -16,34 +16,50 @@ export default class DeviceScreen extends React.Component {
   };
 
   state = {
-      channel: [],
-      feeds: [],
-      status: false,
-      logs: []  
+    channel: [],
+    feeds: [],
+    status: false,
+    logs: [],
+    devices: ''
   }
 
   componentDidMount() {
+    
+  }
+
+  toggleLogVerification = () => {
     fetch(sensorDataAPI)
       .then(response => response.json())
       .then(response => this.setState({
           channel: response.channel,
           feeds: response.feeds
       }))
-  }
-
-  toggleLogVerification = () => {
     if(this.state.status == true){
         this.setState({ status : false })
     } else {
         this.setState({ status : true })
     }
   }
+
+  enableDevice() {
+      console.log('click')
+  }
   
   render() {
     return (
     <View style={styles.bodyContainer}>
-            <Text style={styles.basicContentStyling}>{this.state.channel.name}</Text>
-            <Text style={styles.smallText}>Device ID: {this.state.channel.id}</Text>
+        <Text style={styles.basicContentStyling}>Current Devices:</Text>
+        { this.state.devices ? <Text style={styles.smallText}>Device ID: {this.state.devices}</Text> : <Text style={styles.smallText}>No Devices Enabled</Text> }
+        <TouchableOpacity style={styles.bottonConfig_tracking}>
+            <Button
+              icon={{name: 'retweet', type: 'font-awesome'}}
+              title='Enable Device Tracking' 
+              onPress={this.enableDevice}
+              backgroundColor='#ffa22f'
+              rounded={true}
+              />
+          </TouchableOpacity>
+
             <Text style={{textAlign: 'center', textDecorationLine: 'underline'}}>Current Sensor Readings:</Text>
         <View style={styles.mainContainer}>
             <Text style={styles.sensorReadingStyling}>{this.state.channel.field3} {this.state.feeds.map((item, i) => {
@@ -116,6 +132,12 @@ const styles = StyleSheet.create({
     },
     bottonConfig: {
         width: 175,
+        height: 50,
+        marginTop: 10,
+        alignSelf: 'center'
+    },
+    bottonConfig_tracking: {
+        width: 225,
         height: 50,
         marginTop: 10,
         alignSelf: 'center'
