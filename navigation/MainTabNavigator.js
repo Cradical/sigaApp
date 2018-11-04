@@ -1,12 +1,15 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { StackNavigator, SwitchNavigator } from 'react-navigation'; // 1.3.0
+
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DeviceScreen from '../screens/DeviceScreen'
+// import EnableIoTFormScreen from '../screens/EnableIoTFormScreen'
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -40,6 +43,18 @@ DeviceStack.navigationOptions = {
       />
   ),
 }
+
+// const IoTDeviceFormStack = createStackNavigator({
+//   IoTDeviceForm: EnableIoTFormScreen
+// })
+
+// IoTDeviceFormStack.navigationOptions = {
+//   screen: EnableIoTFormScreen,
+//   navigationOptions: () => {
+//     title: 'IoT Device Form'
+//   },
+// }
+
   
 const ProductsStack = createStackNavigator({
   Products: ProductsScreen,

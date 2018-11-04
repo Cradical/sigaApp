@@ -41,7 +41,7 @@ export default class HomeScreen extends React.Component {
             />
             <View style={styles.contentContainer}>
               <Text style={styles.greeting}>Hi, {this.state.userProfile.first_name}!</Text>
-              <Text style={styles.greetingSubtitle}>Welcome to Siga</Text>
+              <Text style={styles.greetingSubtitle}>Welcome to <Text style={styles.sigaLogo}>Siga</Text></Text>
             </View>
             <Text style={styles.titleDisplay}>Your Products:</Text>
               <View>{this.state.products.map((product, i) => {
@@ -117,6 +117,10 @@ const styles = StyleSheet.create({
     height: 130,
     paddingTop: 40,
     resizeMode: 'contain',
+    shadowRadius: 15,
+    shadowOpacity: 13,
+    shadowColor: 'rgba(96,100,109, 0.8)',
+    shadowOffset: {width: 12, height: 12} 
   },
   getStartedContainer: {
     alignItems: 'center',
@@ -205,8 +209,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'serif',
     textAlign: 'center',
-    marginBottom: 5,
-    borderBottomWidth: 2,
-    borderColor: 'grey'
+    marginBottom: 5
+  },
+  sigaLogo: {
+    color: '#009fff',
+    textShadowColor:  '#29bbea',
+    fontWeight: 'bold',
+    fontSize: 30,
+    fontStyle: 'italic'
   }
 });

@@ -1,15 +1,18 @@
 import React from 'react';
-import { AppRegistry, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
-import { WebView } from 'react-native'
+import { AppRegistry, Text, StyleSheet, View, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements'
+// import { WebView } from 'react-native'
 import { Button, Icon } from 'react-native-elements'
 import CheckAnimation from './CheckAnimation'
-
-
-
+import AppStack from '../navigation/AppNavigator'
 
 const sensorDataAPI = 'https://api.thingspeak.com/channels/615687/feeds.json?results=1'
 
 export default class DeviceScreen extends React.Component {
+    constructor(props){
+        super(props)
+    }
 
   static navigationOptions = {
     title: 'IoT Devices',
@@ -18,9 +21,13 @@ export default class DeviceScreen extends React.Component {
   state = {
     channel: [],
     feeds: [],
-    status: false,
     logs: [],
-    devices: ''
+    devices: '',
+    status: false,
+    showForm: false,
+    checkedActivate: false,
+    checkedGeoAlt: false,
+    showEnableDeviceButton: true 
   }
 
   componentDidMount() {
@@ -41,38 +48,123 @@ export default class DeviceScreen extends React.Component {
     }
   }
 
-  enableDevice() {
-      console.log('click')
+  enableDeviceForm = () => {
+    console.log('click')
+    //   console.log(props.navigation.actions)
+    //   this.props.navigation.actions.navigate('Home', AppStack)
+    if(this.state.showForm == true){
+        this.setState({ showForm : false })
+    } else {
+        this.setState({ showForm : true })
+    }
+  }
+  activateDevice() {
+    console.log('activate clicked')
+    if(this.state.checkedActivate == true){
+        this.setState({ checkedActivate : false })
+    } else {
+        this.setState({ checkedActivate : true })
+    }
+  }
+  useGeo_Alt(){
+    console.log('GeoAlt Option clicked')
+    if(this.state.checkedGeoAlt == true){
+        this.setState({ checkedGeoAlt : false })
+        console.log('if')
+        console.log(this.state.checkedActivate)
+    } else {
+        this.setState({ checkedGeoAlt : true })
+        console.log('else')
+        console.log(this.state.checkedGeoAlt)
+    } 
+  }
+
+  updateDeviceId(event) {
+    console.log('hit')
+    console.log(event)
+    this.setState({
+      devices: event  
+    })
+  }
+  submitForm(){
+    console.log(this.state.showForm)
+    this.setState({
+        showForm: false,
+        showEnableDeviceButton: false
+    })
+    Alert.alert(
+        'Submitted Successfully',
+        'Device is now ACTIVATED',
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        { cancelable: false }
+      )
   }
   
   render() {
+    //   console.log('nav options: ', this.props.navigation.actions.navigate)
+    console.log(this.state.channel)
     return (
     <View style={styles.bodyContainer}>
+        <ScrollView>
         <Text style={styles.basicContentStyling}>Current Devices:</Text>
-        { this.state.devices ? <Text style={styles.smallText}>Device ID: {this.state.devices}</Text> : <Text style={styles.smallText}>No Devices Enabled</Text> }
+        { this.state.devices ? <Text style={styles.smallText} emphasis={styles.basicContentStyling}>Device ID: {this.state.devices}</Text> : <Text style={styles.smallText}>No Devices Enabled</Text> }
+        { this.state.showEnableDeviceButton ? 
         <TouchableOpacity style={styles.bottonConfig_tracking}>
             <Button
               icon={{name: 'retweet', type: 'font-awesome'}}
               title='Enable Device Tracking' 
-              onPress={this.enableDevice}
-              backgroundColor='#ffa22f'
+              onPress={this.enableDeviceForm}
+              backgroundColor='#29bbea'
               rounded={true}
               />
-          </TouchableOpacity>
-
-            <Text style={{textAlign: 'center', textDecorationLine: 'underline'}}>Current Sensor Readings:</Text>
+        </TouchableOpacity> : null }
+        <View style={styles.formContainer}>
+            <ScrollView style={styles.bodyContainer}>
+            {
+                this.state.showForm ? 
+                <View style={styles.logVerifyContainer}>
+                    <FormLabel>Device ID</FormLabel>
+                    <FormInput onChangeText={(event) => this.updateDeviceId(event)}>#1504A</FormInput>
+                    <FormValidationMessage>{'This field is require.'}</FormValidationMessage>
+                    <CheckBox
+                        title='Activate Device?'
+                        checked={this.state.checkedActivate}
+                        onPress={(event) => this.activateDevice(event)}
+                    />
+                    <CheckBox
+                        title='Use Your GeoLocation and Altitude?'
+                        checked={this.state.checkedGeoAlt}
+                        onPress={(event) => this.useGeo_Alt(event)}
+                    />
+                    <TouchableOpacity style={styles.bottonConfig}>
+                        <Button
+                        icon={{name: 'check', type: 'font-awesome'}}
+                        title='Submit' 
+                        onPress={() => this.submitForm()}
+                        backgroundColor='#3014ea'
+                        rounded={true}
+                        />
+                    </TouchableOpacity>
+                </View> : null
+            }
+            </ScrollView>
+        </View>
+            {/* <Text style={{textAlign: 'center', textDecorationLine: 'underline'}}>Current Sensor Readings:</Text> */}
         <View style={styles.mainContainer}>
-            <Text style={styles.sensorReadingStyling}>{this.state.channel.field3} {this.state.feeds.map((item, i) => {
+            <Text style={styles.sensorReadingStyling}>Temperature (F) {this.state.feeds.map((item, i) => {
                 return <Text style={{fontSize: 50, fontWeight: 'bold', textAlign: 'auto'}} key={i}>{item.field3}</Text>
             })}</Text>
-            <Text style={styles.sensorReadingStyling}>{this.state.channel.field1} (%) {this.state.feeds.map((item, i) => {
+            <Text style={styles.sensorReadingStyling}>Humidity (%) {this.state.feeds.map((item, i) => {
                 return <Text style={{fontSize: 50, fontWeight: 'bold', textAlign: 'auto'}} key={i}>{item.field1}</Text>
             })}</Text>
         </View>
         <TouchableOpacity style={styles.bottonConfig}>
             <Button
               icon={{name: 'check', type: 'font-awesome'}}
-              title='Verify Product' 
+              title='Verify Device' 
               onPress={this.toggleLogVerification}
               backgroundColor='#29bbea'
               rounded={true}
@@ -81,15 +173,22 @@ export default class DeviceScreen extends React.Component {
         <View style={styles.logVerifyContainer}>
             {
                 this.state.status ? 
-                <CheckAnimation /> : null
+                <View>
+                    <CheckAnimation data={this.state.channel}/>
+                    <Text></Text>
+                </View> : null
             }
         </View>
+        </ScrollView>
     </View>
         )
   }
 }
 
 const styles = StyleSheet.create({
+    formContainer: {
+        marginBottom: 5
+    },
     bodyContainer: {
         flex: 1,
         paddingTop: 15,
