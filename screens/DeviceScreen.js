@@ -1,11 +1,9 @@
 import React from 'react';
 import { AppRegistry, Text, StyleSheet, View, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
-import { CheckBox } from 'react-native-elements'
-// import { WebView } from 'react-native'
-import { Button, Icon } from 'react-native-elements'
-import CheckAnimation from './CheckAnimation'
-import AppStack from '../navigation/AppNavigator'
+import { FormLabel, FormInput, FormValidationMessage, CheckBox, Button, Icon } from 'react-native-elements'
+import CheckAnimation from '../components/CheckAnimation'
+import Charts from '../components/Charts'
+
 
 const sensorDataAPI = 'https://api.thingspeak.com/channels/615687/feeds.json?results=1'
 
@@ -51,7 +49,7 @@ export default class DeviceScreen extends React.Component {
   enableDeviceForm = () => {
     console.log('click')
     //   console.log(props.navigation.actions)
-    //   this.props.navigation.actions.navigate('Home', AppStack)
+    //   this.props.navigation.navigate('EnableIoTForm')
     if(this.state.showForm == true){
         this.setState({ showForm : false })
     } else {
@@ -104,7 +102,6 @@ export default class DeviceScreen extends React.Component {
   }
   
   render() {
-    //   console.log('nav options: ', this.props.navigation.actions.navigate)
     console.log(this.state.channel)
     return (
     <View style={styles.bodyContainer}>
@@ -175,7 +172,7 @@ export default class DeviceScreen extends React.Component {
                 this.state.status ? 
                 <View>
                     <CheckAnimation data={this.state.channel}/>
-                    <Text></Text>
+                    <Charts />
                 </View> : null
             }
         </View>

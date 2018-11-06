@@ -4,24 +4,26 @@ import { StackNavigator, SwitchNavigator } from 'react-navigation';
 
 
 import MainTabNavigator from './MainTabNavigator';
-// import DeviceScreen from '../screens/DeviceScreen';
 import HomeScreen from '../screens/HomeScreen';
-// import ProductsScreen from '../screens/ProductsScreen';
+import ProductsScreen from '../screens/ProductsScreen';
 // import ProfileScreen from '../screens/ProfileScreen';
 import DeviceScreen from '../screens/DeviceScreen'
 import EnableIoTFormScreen from '../screens/EnableIoTFormScreen'
 
-const AppStack = createStackNavigator({ 
-  Home: {
-    screen: HomeScreen
-  },
-  Devices: {
-    screen: DeviceScreen
-  },
-  EnableIoTForm: {
-    screen: EnableIoTFormScreen
-  }, 
- });
+// const AppStack = createStackNavigator({ 
+//   Home: {
+//     screen: HomeScreen
+//   },
+//   Devices: {
+//     screen: DeviceScreen
+//   },
+//   EnableIoTForm: {
+//     screen: EnableIoTFormScreen
+//   }, 
+//   Products: {
+//     screen: ProductsScreen
+//   }
+//  });
 // const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 
 export default createSwitchNavigator({
@@ -29,7 +31,7 @@ export default createSwitchNavigator({
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   Main: MainTabNavigator,
   // AuthLoading: AuthLoadingScreen,
-  App: AppStack,
+  // App: AppStack,
   // Auth: AuthStack,
 });
 

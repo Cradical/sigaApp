@@ -9,7 +9,8 @@ import HomeScreen from '../screens/HomeScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DeviceScreen from '../screens/DeviceScreen'
-// import EnableIoTFormScreen from '../screens/EnableIoTFormScreen'
+import EnableIoTFormScreen from '../screens/EnableIoTFormScreen';
+import ProductInfoScreen from '../screens/ProductInfoScreen'
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -32,6 +33,7 @@ HomeStack.navigationOptions = {
 
 const DeviceStack = createStackNavigator({
   Devices: DeviceScreen,
+  EnableIoTForm: EnableIoTFormScreen
 })
 
 DeviceStack.navigationOptions = {
@@ -43,21 +45,10 @@ DeviceStack.navigationOptions = {
       />
   ),
 }
-
-// const IoTDeviceFormStack = createStackNavigator({
-//   IoTDeviceForm: EnableIoTFormScreen
-// })
-
-// IoTDeviceFormStack.navigationOptions = {
-//   screen: EnableIoTFormScreen,
-//   navigationOptions: () => {
-//     title: 'IoT Device Form'
-//   },
-// }
-
   
 const ProductsStack = createStackNavigator({
   Products: ProductsScreen,
+  ProductInfo: ProductInfoScreen
 });
 
 ProductsStack.navigationOptions = {

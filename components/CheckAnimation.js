@@ -1,6 +1,6 @@
 import React from 'react';
 import { WebView, View, Text, StyleSheet } from 'react-native'
-import { MonoText } from '../components/StyledText';
+import { MonoText } from './StyledText';
 
 export default class CheckAnimation extends React.Component {
     constructor(props){
