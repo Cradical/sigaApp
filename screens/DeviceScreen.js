@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppRegistry, Text, StyleSheet, View, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { AppRegistry, Text, StyleSheet, View, TouchableOpacity, ScrollView, Alert, Image } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, CheckBox, Button, Icon } from 'react-native-elements'
 import CheckAnimation from '../components/CheckAnimation'
 import Charts from '../components/Charts'
@@ -25,7 +25,8 @@ export default class DeviceScreen extends React.Component {
     showForm: false,
     checkedActivate: false,
     checkedGeoAlt: false,
-    showEnableDeviceButton: true 
+    showEnableDeviceButton: true,
+    showQrCode: false
   }
 
   componentDidMount() {
@@ -102,6 +103,13 @@ export default class DeviceScreen extends React.Component {
       )
   }
   blockchainActivation(){
+    console.log('showQR.Code clicked')
+    if(this.state.showQrCode == true){
+        this.setState({ showQrCode : false })
+    } else {
+        this.setState({ showQrCode : true })
+    } 
+
     Alert.alert(
         'Device Assigned to Blockchain',
         "Device Ready For Transport",
@@ -196,6 +204,17 @@ export default class DeviceScreen extends React.Component {
                 </TouchableOpacity>
                 </View> : null
             }
+        </View>
+        <View>
+            {this.state.showQrCode ? 
+                <View>
+                    <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>Your Product's Public Key for BlockChain Tracking</Text>
+                    <Text style={{ textAlign: 'center' }}>Have the transport company scan this QR Code.</Text> 
+                    <Image
+                    style={{ width: 275, height: 275, alignSelf: 'center' }}
+                    source={require('../assets/images/QR_cw.com.png')}
+                    /> 
+                </View>: null }
         </View>
         </ScrollView>
     </View>
