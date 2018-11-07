@@ -49,12 +49,13 @@ export default class DeviceScreen extends React.Component {
   enableDeviceForm = () => {
     console.log('click')
     //   console.log(props.navigation.actions)
-    //   this.props.navigation.navigate('EnableIoTForm')
-    if(this.state.showForm == true){
-        this.setState({ showForm : false })
-    } else {
-        this.setState({ showForm : true })
-    }
+    this.setState({ devices: '615687'})
+    this.props.navigation.navigate('EnableIoTForm')
+    // if(this.state.showForm == true){
+    //     this.setState({ showForm : false })
+    // } else {
+    //     this.setState({ showForm : true })
+    // }
   }
   activateDevice() {
     console.log('activate clicked')
@@ -77,8 +78,8 @@ export default class DeviceScreen extends React.Component {
     } 
   }
 
-  updateDeviceId(event) {
-    console.log('hit')
+  updateDeviceIdTitle(event) {
+    console.log('update hit')
     console.log(event)
     this.setState({
       devices: event  
@@ -100,6 +101,17 @@ export default class DeviceScreen extends React.Component {
         { cancelable: false }
       )
   }
+  blockchainActivation(){
+    Alert.alert(
+        'Device Assigned to Blockchain',
+        "Device Ready For Transport",
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        { cancelable: false }
+      )
+}
   
   render() {
     console.log(this.state.channel)
@@ -120,7 +132,7 @@ export default class DeviceScreen extends React.Component {
         </TouchableOpacity> : null }
         <View style={styles.formContainer}>
             <ScrollView style={styles.bodyContainer}>
-            {
+            {/* {
                 this.state.showForm ? 
                 <View style={styles.logVerifyContainer}>
                     <FormLabel>Device ID</FormLabel>
@@ -136,7 +148,7 @@ export default class DeviceScreen extends React.Component {
                         checked={this.state.checkedGeoAlt}
                         onPress={(event) => this.useGeo_Alt(event)}
                     />
-                    <TouchableOpacity style={styles.bottonConfig}>
+                    <TouchableOpacity style={styles.bottonConfig_tracking}>
                         <Button
                         icon={{name: 'check', type: 'font-awesome'}}
                         title='Submit' 
@@ -146,7 +158,7 @@ export default class DeviceScreen extends React.Component {
                         />
                     </TouchableOpacity>
                 </View> : null
-            }
+            } */}
             </ScrollView>
         </View>
             {/* <Text style={{textAlign: 'center', textDecorationLine: 'underline'}}>Current Sensor Readings:</Text> */}
@@ -171,8 +183,17 @@ export default class DeviceScreen extends React.Component {
             {
                 this.state.status ? 
                 <View>
-                    <CheckAnimation data={this.state.channel}/>
+                    <CheckAnimation data={this.state.channel} feedData={this.state.feeds}/>
                     <Charts />
+                        <TouchableOpacity style={{ width: 270, height: 45, margin: 10, marginBottom: 5, alignSelf: 'center', paddingBottom: 10 }}>
+                        <Button
+                        icon={{name: 'check', type: 'font-awesome'}}
+                        title='Attach Blockchain Signature' 
+                        onPress={() => this.blockchainActivation()}
+                        backgroundColor='#3014ea'
+                        rounded={true}
+                        />
+                </TouchableOpacity>
                 </View> : null
             }
         </View>

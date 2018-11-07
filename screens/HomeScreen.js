@@ -46,12 +46,12 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.titleDisplay}>Your Products:</Text>
               <View>{this.state.products.map((product, i) => {
                 return (
-                  <MonoText style={styles.infoDisplay} key={i}> 🥕 {product}</MonoText>
+                  <MonoText style={styles.productDisplay} key={i}> 🥕 {product}</MonoText>
                 )
               })}</View>
             <Text style={styles.titleDisplay}>Your IoT Device:</Text> 
-              <MonoText style={styles.infoDisplay}>Device_ID: {this.state.iot_devices}</MonoText>
-              <MonoText style={styles.infoDisplay}>Status: {this.state.status}</MonoText>
+              <MonoText style={styles.infoDisplay}>Please Add A Device</MonoText>
+              <MonoText style={styles.infoDisplay}>In The Devices Tab</MonoText>
           </View>
         </ScrollView>
       </View>
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
   welcomeImage: {
     width: 150,
     height: 130,
+    marginTop: 25,
     paddingTop: 40,
     resizeMode: 'contain',
     shadowRadius: 15,
@@ -193,9 +194,14 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 5
   },
+  productDisplay: {
+    fontSize: 17,
+    fontWeight: '400',
+  },
   infoDisplay: {
     fontSize: 17,
-    fontWeight: '400'
+    fontWeight: '400',
+    fontStyle: 'italic'
   },
   greeting: {
     fontSize: 40,

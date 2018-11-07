@@ -1,5 +1,6 @@
 import React from 'react';
-import { WebView, View, Text, StyleSheet } from 'react-native'
+import { WebView, View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { Button } from 'react-native-elements'
 import { MonoText } from './StyledText';
 
 export default class CheckAnimation extends React.Component {
@@ -47,14 +48,18 @@ AnimationProps = {
     // reset();
 
     render() {
-        console.log(this.props.data)
+        console.log('data: ', this.props.data)
+        console.log('feed: ', this.props.feedData)
         const data = this.props.data
+        const feedData = this.props.feedData
+        // console.log('feedData: ', feedData[0].entry_id)
         return(
             <View>
             <WebView style={{ width: 230, height: 230, alignSelf: 'center'}} source={{ uri: "https://lottiefiles.com/iframe/3101-first-checked" }} javaScriptEnabled={true} domStorageEnabled={true}></WebView>
             <View >
                 <Text style={styles.basicContentStyling}>{data.name} for {data.description}</Text>
-                <Text style={styles.basicContentStyling}>Activation time: {data.created_at}</Text>
+                <Text style={styles.basicContentStyling}>Activated on: {data.updated_at}</Text>
+                {/* <Text style={styles.basicContentStyling}>Humidity: {feedData.field1}</Text> */}
                 <Text style={styles.basicContentStyling}>Device ID: {data.id}</Text>
                 <Text style={styles.basicContentStyling}>Elevation: {data.elevation}</Text>
                 <Text style={styles.basicContentStyling}>Location: DENVER, CO, USA</Text>
@@ -73,13 +78,13 @@ AnimationProps = {
     },
     basicContentStyling: {
         textAlign: 'left',
-        marginLeft: 15,
+        marginLeft: 20,
         fontSize: 12,
         fontWeight: 'bold'   
     },
     monoscapeStyling: {
         textAlign: 'left',
-        marginLeft: 15
+        marginLeft: 20
     }
   })
 
