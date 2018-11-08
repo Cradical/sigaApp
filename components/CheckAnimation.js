@@ -59,7 +59,7 @@ AnimationProps = {
             <View >
                 <Text style={styles.basicContentStyling}>{data.name} for {data.description}</Text>
                 <Text style={styles.basicContentStyling}>Activated on: {data.updated_at}</Text>
-                {/* <Text style={styles.basicContentStyling}>Humidity: {feedData.field1}</Text> */}
+                <Text style={styles.basicContentStyling}>Certifications added: Fair Trade, Organic</Text>
                 <Text style={styles.basicContentStyling}>Device ID: {data.id}</Text>
                 <Text style={styles.basicContentStyling}>Elevation: {data.elevation}</Text>
                 <Text style={styles.basicContentStyling}>Location: DENVER, CO, USA</Text>

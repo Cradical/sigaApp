@@ -12,6 +12,7 @@ import {
   Alert
 } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, CheckBox, Button } from 'react-native-elements'
+import { MonoText } from '../components/StyledText'
 
 class EnableIoTFormScreen extends React.Component {
   static navigationOptions = {
@@ -23,10 +24,12 @@ class EnableIoTFormScreen extends React.Component {
     feeds: [],
     logs: [],
     products: [],
+    certifications: ['Fair Trade', 'Organic'],
     devices: '',
     status: false,
     showForm: false,
     findNearbyDevice: false,
+    checkedCertificates: false,
     checkedActivate: false,
     checkedGeoAlt: false,
     showEnableDeviceButton: true 
@@ -54,6 +57,13 @@ class EnableIoTFormScreen extends React.Component {
     } else {
         this.setState({ selectedProduct : true })
     }
+  }
+
+  activateCertificates(){
+      console.log('Activate Certificates clicked')
+      if(this.state.checkedCertificates == true){
+          this.setState({ checkedCertificates: false })
+      } else { this.setState({ checkedCertificates: true }) }
   }
 
   activateDevice() {
@@ -131,6 +141,24 @@ class EnableIoTFormScreen extends React.Component {
         <Text style={{ marginLeft: 13, fontFamily: 'serif', marginBottom: 10 }}>Product selected for tagging: <Text style={{ fontWeight: 'bold'}}>{this.state.products}</Text></Text>
         <FormValidationMessage style={{ marginBottom: 5, fontSize: 10 }}>{'Section Required'}</FormValidationMessage>
         <View style={{ borderBottomWidth: 1, borderTopWidth: 1, marginBottom: 5, paddingBottom: 5 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 10, marginTop: 10 }}>Certification Information</Text>
+            <Text style={{ fontWeight: '300', fontSize: 12, fontFamily: 'serif', marginLeft: 13  }}>Would you like to attach your certificates to the device?</Text>
+            <CheckBox
+                title='Yes, use my certificates.'
+                checked={this.state.checkedCertificates}
+                onPress={(event) => this.activateCertificates(event)}
+            />
+            <Text style={{ marginLeft: 13, fontFamily: 'serif', marginBottom: 10 }}>Certificates applied: 
+                {this.state.checkedCertificates ? 
+                <Text>{this.state.certifications.map((cert, i) => {
+                    return (
+                        <MonoText style={{ fontWeight: 'bold'}} key={i}> 🥕 {cert}</MonoText>
+                    )
+                })}</Text>
+                : ' No certificates applied.'}</Text>
+        <FormValidationMessage style={{ marginBottom: 5}}>{'Section Required'}</FormValidationMessage>
+        </View>
+        <View style={{ borderBottomWidth: 1, marginBottom: 5, paddingBottom: 5 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 10, marginTop: 10 }}>Origin Information</Text>
             <CheckBox
                 title='Use Your GeoLocation and Altitude?'
