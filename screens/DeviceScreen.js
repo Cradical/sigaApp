@@ -111,7 +111,7 @@ export default class DeviceScreen extends React.Component {
     } 
 
     Alert.alert(
-        'Device Assigned to Blockchain',
+        'Device Assigned To The Blockchain',
         "Device Ready For Transport",
         [
           {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
@@ -196,7 +196,7 @@ export default class DeviceScreen extends React.Component {
                         <TouchableOpacity style={{ width: 270, height: 45, margin: 10, marginBottom: 5, alignSelf: 'center', paddingBottom: 10 }}>
                         <Button
                         icon={{name: 'check', type: 'font-awesome'}}
-                        title='Attach Blockchain Signature' 
+                        title='Assign A Blockchain Key' 
                         onPress={() => this.blockchainActivation()}
                         backgroundColor='#3014ea'
                         rounded={true}
