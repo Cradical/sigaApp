@@ -22,7 +22,7 @@ export default class HomeScreen extends React.Component {
     iot_devices: '#1560A',
     userProfile: {
       first_name: 'Conrad'
-    },
+    }, 
     status: 'Active'
   }
 
