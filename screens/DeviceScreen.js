@@ -32,9 +32,6 @@ export default class DeviceScreen extends React.Component {
     logs: [],
     devices: "",
     status: false,
-    // showForm: false,
-    // checkedActivate: false,
-    // checkedGeoAlt: false,
     showEnableDeviceButton: true,
     showQrCode: false
   };
@@ -243,9 +240,6 @@ export default class DeviceScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  formContainer: {
-    marginBottom: 5
-  },
   bodyContainer: {
     flex: 1,
     paddingTop: 15,
