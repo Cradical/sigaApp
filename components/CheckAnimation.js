@@ -21,7 +21,6 @@ export default class CheckAnimation extends React.Component {
                 source={{ uri: "https://lottiefiles.com/iframe/3101-first-checked", props: this.AnimationProps.loop }} 
                 javaScriptEnabled={true} 
                 domStorageEnabled={true}
-                // injectedJavaScript={() => this.AnimationProps.loop}
                 >
             </WebView>
             <View >
