@@ -32,9 +32,9 @@ export default class DeviceScreen extends React.Component {
     logs: [],
     devices: "",
     status: false,
-    showForm: false,
-    checkedActivate: false,
-    checkedGeoAlt: false,
+    // showForm: false,
+    // checkedActivate: false,
+    // checkedGeoAlt: false,
     showEnableDeviceButton: true,
     showQrCode: false
   };

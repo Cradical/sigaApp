@@ -1,8 +1,5 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
   StyleSheet,
   ScrollView,
   View,
@@ -20,19 +17,15 @@ class EnableIoTFormScreen extends React.Component {
   };
 
   state = {
-    channel: [],
-    feeds: [],
     logs: [],
     products: [],
     certifications: ['Fair Trade', 'Organic'],
     devices: '',
     status: false,
-    showForm: false,
     findNearbyDevice: false,
     checkedCertificates: false,
     checkedActivate: false,
     checkedGeoAlt: false,
-    showEnableDeviceButton: true 
   }
 
   onPress(){
@@ -78,24 +71,18 @@ class EnableIoTFormScreen extends React.Component {
     console.log('GeoAlt Option clicked')
     if(this.state.checkedGeoAlt == true){
         this.setState({ checkedGeoAlt : false })
-        console.log('if')
-        console.log(this.state.checkedActivate)
     } else {
         this.setState({ checkedGeoAlt : true })
-        console.log('else')
-        console.log(this.state.checkedGeoAlt)
     } 
   }
 
   updateDeviceId(event) {
-    console.log('hit')
     console.log(event)
     this.setState({
       devices: event  
     })
   }
   submitForm(){
-    console.log(this.state.showForm)
     Alert.alert(
         'Submitted Successfully',
         "Device #" + `${this.state.devices}` + " is now ACTIVATED",
@@ -109,7 +96,6 @@ class EnableIoTFormScreen extends React.Component {
   }
   
   render() {
-      console.log('propsForm: ', this.props)
     return (
     <View>
     <ScrollView>
@@ -205,62 +191,10 @@ const styles = StyleSheet.create({
       paddingVertical: 5,
       borderBottomWidth: 1
   },
-  bodyContainer: {
-      flex: 1,
-      paddingTop: 15,
-      backgroundColor: '#fff',
-      paddingVertical: 20,
-  },
-  mainContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      flexBasis: 100,
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-      borderColor: '#aeaeae',
-      margin: 15,
-      padding: 2
-  },
-  basicContentStyling: {
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'row',
-      textAlign: 'center',
-      fontSize: 20,
-      fontWeight: 'bold',
-      marginTop: 25
-      
-  },
-  sensorReadingStyling: {
-      display: 'flex',
-      flexDirection: 'column',
-      flexBasis: 100,
-      flex: 2,
-      textAlign: 'center',
-      fontWeight: 'bold',
-      borderWidth: 1,
-      margin: 7
-  },
-  smallText: {
-      textAlign: 'center',
-      fontSize: 10
-  },
-  logVerifyContainer: {
-      justifyContent: 'center',
-      flex: 1,
-  },
   bottonConfig: {
       width: 175,
       height: 50,
       marginTop: 10,
       alignSelf: 'center'
-  },
-  bottonConfig_tracking: {
-      width: 225,
-      height: 50,
-      marginTop: 10,
-      alignSelf: 'center'
   }
-
 })
