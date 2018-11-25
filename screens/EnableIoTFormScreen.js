@@ -100,9 +100,9 @@ class EnableIoTFormScreen extends React.Component {
     <View>
     <ScrollView>
     <View style={styles.formContainer}>
-        <View style={styles.catergorySection}>
-            <Text style={styles.catergoryTitle}>Device</Text>
-            <Text style={styles.categorySubtitle}>Use A Nearby Device?</Text>
+        <View style={styles.sectionContainer}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 5, marginTop: 10 }}>Device</Text>
+            <Text style={{ fontWeight: '300', fontSize: 12, fontFamily: 'serif', marginLeft: 8 }}>Use A Nearby Device?</Text>
             <View style={{ marginLeft: 5 }}>
                 <CheckBox
                     title='Yes, use nearby device.'
@@ -114,29 +114,27 @@ class EnableIoTFormScreen extends React.Component {
                 <FormInput onChangeText={(event) => this.updateDeviceId(event)}>{this.state.findNearbyDevice ? '615687' : '' }</FormInput>
                 <FormValidationMessage style={{ fontSize: 10 }}>{'Section Required'}</FormValidationMessage>
         </View>
-        <View style={styles.catergorySection}>
-            <Text style={styles.catergoryTitle}>Products</Text>
-            <Text style={styles.categorySubtitle}>Which product would you like to tag?</Text>
-            <Picker
-                selectedValue={this.state.products}
-                style={{ height: 50, width: 150, marginLeft: 15 }}
-                onValueChange={(itemValue, itemIndex) => this.setState({products: itemValue})}>
-                <Picker.Item label="Select Item" enabled={false} />
-                <Picker.Item label="Coffee" value="Coffee" />
-                <Picker.Item label="Talapia" value="Talapia" />
-            </Picker>
-            <Text style={styles.sectionAlerts}>Product selected for tagging: <Text style={{ fontWeight: 'bold'}}>{this.state.products}</Text></Text>
-            <FormValidationMessage style={{ marginBottom: 5 }}>{'Section Required'}</FormValidationMessage>
-        </View>
-        <View style={styles.catergorySection}>
-            <Text style={styles.catergoryTitle}>Certification Information</Text>
-            <Text style={styles.categorySubtitle}>Would you like to attach your certificates to the device?</Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 10, marginTop: 10 }}>Products</Text>
+        <Text style={{ fontWeight: '300', fontSize: 12, fontFamily: 'serif', marginLeft: 13 }}>Which product would you like to tag?</Text>
+        <Picker
+            selectedValue={this.state.products}
+            style={{ height: 50, width: 150, marginLeft: 15 }}
+            onValueChange={(itemValue, itemIndex) => this.setState({products: itemValue})}>
+            <Picker.Item label="Select Item" enabled={false} />
+            <Picker.Item label="Coffee" value="Coffee" />
+            <Picker.Item label="Talapia" value="Talapia" />
+        </Picker>
+        <Text style={{ marginLeft: 13, fontFamily: 'serif', marginBottom: 10 }}>Product selected for tagging: <Text style={{ fontWeight: 'bold'}}>{this.state.products}</Text></Text>
+        <FormValidationMessage style={{ marginBottom: 5, fontSize: 10 }}>{'Section Required'}</FormValidationMessage>
+        <View style={{ borderBottomWidth: 1, borderTopWidth: 1, marginBottom: 5, paddingBottom: 5 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 10, marginTop: 10 }}>Certification Information</Text>
+            <Text style={{ fontWeight: '300', fontSize: 12, fontFamily: 'serif', marginLeft: 13  }}>Would you like to attach your certificates to the device?</Text>
             <CheckBox
                 title='Yes, use my certificates.'
                 checked={this.state.checkedCertificates}
                 onPress={(event) => this.activateCertificates(event)}
             />
-            <Text style={styles.sectionAlerts}>Certificates applied: 
+            <Text style={{ marginLeft: 13, fontFamily: 'serif', marginBottom: 10 }}>Certificates applied: 
                 {this.state.checkedCertificates ? 
                 <Text>{this.state.certifications.map((cert, i) => {
                     return (
@@ -144,25 +142,25 @@ class EnableIoTFormScreen extends React.Component {
                     )
                 })}</Text>
                 : ' No certificates applied.'}</Text>
-        <FormValidationMessage style={{ marginBottom: 10}}>{'Section Required'}</FormValidationMessage>
+        <FormValidationMessage style={{ marginBottom: 5}}>{'Section Required'}</FormValidationMessage>
         </View>
-        <View style={styles.catergorySection}>
-            <Text style={styles.catergoryTitle}>Origin Information</Text>
+        <View style={{ borderBottomWidth: 1, marginBottom: 5, paddingBottom: 5 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 10, marginTop: 10 }}>Origin Information</Text>
             <CheckBox
                 title='Use Your GeoLocation and Altitude?'
                 checked={this.state.checkedGeoAlt}
                 onPress={(event) => this.useGeo_Alt(event)}
             />
-        <FormValidationMessage style={{ marginBottom: 10}}>{'Section Required'}</FormValidationMessage>
+        <FormValidationMessage style={{ marginBottom: 5}}>{'Section Required'}</FormValidationMessage>
         </View>
-        <View style={styles.catergorySection}>
-            <Text style={styles.catergoryTitle}>Activate Device</Text>
+        <View style={{ borderBottomWidth: 1, marginBottom: 5, paddingBottom: 5 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 10, marginTop: 10 }}>Activate Device</Text>
             <CheckBox
                 title='Yes, active my device'
                 checked={this.state.checkedActivate}
                 onPress={(event) => this.activateDevice(event)}
             />
-        <FormValidationMessage style={{ marginBottom: 10}}>{'Section Required'}</FormValidationMessage>
+        <FormValidationMessage style={{ marginBottom: 5}}>{'Section Required'}</FormValidationMessage>
         </View>
         <TouchableOpacity style={styles.bottonConfig}>
             <Button
@@ -182,37 +180,21 @@ class EnableIoTFormScreen extends React.Component {
 export default EnableIoTFormScreen
 
 const styles = StyleSheet.create({
-    formContainer: {
-        marginBottom: 5,
-        backgroundColor: '#FFF'
-    },
-    catergorySection: {
-        borderBottomWidth: 2, 
-        marginBottom: 5, 
-        paddingBottom: 5
-    },
-    catergoryTitle: {
-        fontWeight: 'bold', 
-        fontSize: 18, 
-        marginLeft: 5, 
-        marginTop: 10  
-    },
-    categorySubtitle: {
-        fontWeight: '300', 
-        fontSize: 12, 
-        fontFamily: 'serif', 
-        marginLeft: 8 
-    },
-    bottonConfig: {
-        width: 175,
-        height: 50,
-        marginTop: 10,
-        alignSelf: 'center'
-    },
-    sectionAlerts: {
-        marginLeft: 13, 
-        fontFamily: 'serif', 
-        marginBottom: 10 
-    }
-
+  formContainer: {
+      marginBottom: 5,
+      backgroundColor: '#FFF'
+  },
+  sectionContainer: {
+      margin: 10,
+      alignSelf: 'center',
+      marginBottom: 3,
+      paddingVertical: 5,
+      borderBottomWidth: 1
+  },
+  bottonConfig: {
+      width: 175,
+      height: 50,
+      marginTop: 10,
+      alignSelf: 'center'
+  }
 })
