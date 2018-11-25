@@ -1,5 +1,5 @@
 import React from 'react';
-import { WebView, View, Text, StyleSheet } from 'react-native'
+import { WebView, View } from 'react-native'
 
 export default class Charts extends React.Component {
     constructor(props){

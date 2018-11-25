@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Text,
   StyleSheet,
@@ -7,24 +7,24 @@ import {
   ScrollView,
   Alert,
   Image
-} from "react-native";
+} from "react-native"
 import {
   Button
 } from "react-native-elements";
-import CheckAnimation from "../components/CheckAnimation";
-import Charts from "../components/Charts";
+import CheckAnimation from "../components/CheckAnimation"
+import Charts from "../components/Charts"
 
 const sensorDataAPI =
-  "https://api.thingspeak.com/channels/615687/feeds.json?results=1";
+  "https://api.thingspeak.com/channels/615687/feeds.json?results=1"
 
 export default class DeviceScreen extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   static navigationOptions = {
     title: "IoT Devices"
-  };
+  }
 
   state = {
     channel: [],
@@ -34,7 +34,7 @@ export default class DeviceScreen extends React.Component {
     status: false,
     showEnableDeviceButton: true,
     showQrCode: false
-  };
+  }
 
   toggleLogVerification = () => {
     fetch(sensorDataAPI)
@@ -46,41 +46,44 @@ export default class DeviceScreen extends React.Component {
         })
       );
     if (this.state.status == true) {
-      this.setState({ status: false });
+      this.setState({ status: false })
     } else {
-      this.setState({ status: true });
-    }
-  };
-
-  enableDeviceForm = () => {
-    this.setState({ devices: "615687" });
-    this.props.navigation.navigate("EnableIoTForm");
-  };
-  activateDevice() {
-    if (this.state.checkedActivate == true) {
-      this.setState({ checkedActivate: false });
-    } else {
-      this.setState({ checkedActivate: true });
+      this.setState({ status: true })
     }
   }
+
+  enableDeviceForm = () => {
+    this.setState({ devices: "615687" })
+    this.props.navigation.navigate("EnableIoTForm")
+  }
+
+  activateDevice() {
+    if (this.state.checkedActivate == true) {
+      this.setState({ checkedActivate: false })
+    } else {
+      this.setState({ checkedActivate: true })
+    }
+  }
+
   useGeo_Alt() {
     if (this.state.checkedGeoAlt == true) {
-      this.setState({ checkedGeoAlt: false });
+      this.setState({ checkedGeoAlt: false })
     } else {
-      this.setState({ checkedGeoAlt: true });
+      this.setState({ checkedGeoAlt: true })
     }
   }
 
   updateDeviceIdTitle(event) {
     this.setState({
       devices: event
-    });
+    })
   }
+
   submitForm() {
     this.setState({
       showForm: false,
       showEnableDeviceButton: false
-    });
+    })
     Alert.alert(
       "Submitted Successfully",
       "Device is now ACTIVATED",
@@ -93,15 +96,15 @@ export default class DeviceScreen extends React.Component {
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ],
       { cancelable: false }
-    );
+    )
   }
+
   blockchainActivation() {
     if (this.state.showQrCode == true) {
       this.setState({ showQrCode: false });
     } else {
       this.setState({ showQrCode: true });
     }
-
     Alert.alert(
       "Device Assigned To The Blockchain",
       "Device Ready For Transport",
@@ -114,129 +117,129 @@ export default class DeviceScreen extends React.Component {
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ],
       { cancelable: false }
-    );
+    )
   }
 
-  render() {
-    return (
-      <View style={styles.bodyContainer}>
-        <ScrollView>
-          <Text style={styles.basicContentStyling}>Current Devices:</Text>
-          {this.state.devices ? (
-            <Text
-              style={styles.smallText}
-              emphasis={styles.basicContentStyling}
-            >
-              Device ID: {this.state.devices}
-            </Text>
-          ) : (
-            <Text style={styles.smallText}>No Devices Enabled</Text>
-          )}
-          {this.state.showEnableDeviceButton ? (
-            <TouchableOpacity style={styles.bottonConfig_tracking}>
-              <Button
-                icon={{ name: "retweet", type: "font-awesome" }}
-                title="Enable Device Tracking"
-                onPress={this.enableDeviceForm}
-                backgroundColor="#29bbea"
-                rounded={true}
-              />
-            </TouchableOpacity>
-          ) : null}
-          <View style={styles.mainContainer}>
-            <Text style={styles.sensorReadingStyling}>
-              Temperature (F){" "}
-              {this.state.feeds.map((item, i) => {
-                return (
-                  <Text
-                    style={{
-                      fontSize: 50,
-                      fontWeight: "bold",
-                      textAlign: "auto"
-                    }}
-                    key={i}
-                  >
-                    {item.field3}
-                  </Text>
-                );
-              })}
-            </Text>
-            <Text style={styles.sensorReadingStyling}>
-              Humidity (%) 
-              {this.state.feeds.map((item, i) => {
-                return (
-                  <Text
-                    style={{
-                      fontSize: 50,
-                      fontWeight: "bold",
-                      textAlign: "auto"
-                    }}
-                    key={i}
-                  >
-                    {item.field1}
-                  </Text>
-                );
-              })}
-            </Text>
-          </View>
-          <TouchableOpacity style={styles.bottonConfig}>
+render() {
+  return (
+    <View style={styles.bodyContainer}>
+      <ScrollView>
+        <Text style={styles.basicContentStyling}>Current Devices:</Text>
+        {this.state.devices ? (
+          <Text
+            style={styles.smallText}
+            emphasis={styles.basicContentStyling}
+          >
+            Device ID: {this.state.devices}
+          </Text>
+        ) : (
+          <Text style={styles.smallText}>No Devices Enabled</Text>
+        )}
+        {this.state.showEnableDeviceButton ? (
+          <TouchableOpacity style={styles.bottonConfig_tracking}>
             <Button
-              icon={{ name: "check", type: "font-awesome" }}
-              title="Verify Device"
-              onPress={this.toggleLogVerification}
+              icon={{ name: "retweet", type: "font-awesome" }}
+              title="Enable Device Tracking"
+              onPress={this.enableDeviceForm}
               backgroundColor="#29bbea"
               rounded={true}
             />
           </TouchableOpacity>
-          <View style={styles.logVerifyContainer}>
-            {this.state.status ? (
-              <View>
-                <CheckAnimation
-                  data={this.state.channel}
-                  feedData={this.state.feeds}
-                />
-                <Charts />
-                <TouchableOpacity
+        ) : null}
+        <View style={styles.mainContainer}>
+          <Text style={styles.sensorReadingStyling}>
+            Temperature (F){" "}
+            {this.state.feeds.map((item, i) => {
+              return (
+                <Text
                   style={{
-                    width: 270,
-                    height: 45,
-                    margin: 10,
-                    marginBottom: 5,
-                    alignSelf: "center",
-                    paddingBottom: 10
+                    fontSize: 50,
+                    fontWeight: "bold",
+                    textAlign: "auto"
                   }}
+                  key={i}
                 >
-                  <Button
-                    icon={{ name: "check", type: "font-awesome" }}
-                    title="Assign A Blockchain Key"
-                    onPress={() => this.blockchainActivation()}
-                    backgroundColor="#3014ea"
-                    rounded={true}
-                  />
-                </TouchableOpacity>
-              </View>
-            ) : null}
-          </View>
-          <View>
-            {this.state.showQrCode ? (
-              <View>
-                <Text style={{ fontWeight: "bold", textAlign: "center" }}>
-                  Your Product's Public Key for BlockChain Tracking
+                  {item.field3}
                 </Text>
-                <Text style={{ textAlign: "center" }}>
-                  Have the transport company scan this QR Code.
+              );
+            })}
+          </Text>
+          <Text style={styles.sensorReadingStyling}>
+            Humidity (%) 
+            {this.state.feeds.map((item, i) => {
+              return (
+                <Text
+                  style={{
+                    fontSize: 50,
+                    fontWeight: "bold",
+                    textAlign: "auto"
+                  }}
+                  key={i}
+                >
+                  {item.field1}
                 </Text>
-                <Image
-                  style={{ width: 275, height: 275, alignSelf: "center" }}
-                  source={require("../assets/images/QR_cw.com.png")}
+              );
+            })}
+          </Text>
+        </View>
+        <TouchableOpacity style={styles.bottonConfig}>
+          <Button
+            icon={{ name: "check", type: "font-awesome" }}
+            title="Verify Device"
+            onPress={this.toggleLogVerification}
+            backgroundColor="#29bbea"
+            rounded={true}
+          />
+        </TouchableOpacity>
+        <View style={styles.logVerifyContainer}>
+          {this.state.status ? (
+            <View>
+              <CheckAnimation
+                data={this.state.channel}
+                feedData={this.state.feeds}
+              />
+              <Charts />
+              <TouchableOpacity
+                style={{
+                  width: 270,
+                  height: 45,
+                  margin: 10,
+                  marginBottom: 5,
+                  alignSelf: "center",
+                  paddingBottom: 10
+                }}
+              >
+                <Button
+                  icon={{ name: "check", type: "font-awesome" }}
+                  title="Assign A Blockchain Key"
+                  onPress={() => this.blockchainActivation()}
+                  backgroundColor="#3014ea"
+                  rounded={true}
                 />
-              </View>
-            ) : null}
-          </View>
-        </ScrollView>
-      </View>
-    );
-  }
+              </TouchableOpacity>
+            </View>
+          ) : null}
+        </View>
+        <View>
+          {this.state.showQrCode ? (
+            <View>
+              <Text style={{ fontWeight: "bold", textAlign: "center" }}>
+                Your Product's Public Key for BlockChain Tracking
+              </Text>
+              <Text style={{ textAlign: "center" }}>
+                Have the transport company scan this QR Code.
+              </Text>
+              <Image
+                style={{ width: 275, height: 275, alignSelf: "center" }}
+                source={require("../assets/images/QR_cw.com.png")}
+              />
+            </View>
+          ) : null}
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
 }
 
 const styles = StyleSheet.create({
