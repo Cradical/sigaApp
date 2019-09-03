@@ -1,15 +1,12 @@
 import React from 'react';
 import {
   Image,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View
 } from 'react-native';
-
-import { WebBrowser } from 'expo';
 import { Button } from 'react-native-elements'
 import { MonoText } from '../components/StyledText';
 

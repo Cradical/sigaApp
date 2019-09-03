@@ -1,37 +1,39 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
-} from 'react-native';
-import { WebBrowser } from 'expo';
+} from 'react-native'
+import { WebBrowser } from 'expo'
 
-import { MonoText } from '../components/StyledText';
+import { MonoText } from '../components/StyledText'
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
-  };
+  }
 
   state = {
     products: ['Coffee', 'Talapia'],
     iot_devices: '#1560A',
     userProfile: {
-      first_name: 'Conrad'
-    }, 
-    status: 'Active'
+      first_name: 'Conrad',
+    },
+    status: 'Active',
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
           <View style={styles.welcomeContainer}>
-          <Image
+            <Image
               source={
                 __DEV__
                   ? require('../assets/images/atomix_user31.png')
@@ -40,22 +42,31 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
             <View style={styles.contentContainer}>
-              <Text style={styles.greeting}>Hi, {this.state.userProfile.first_name}!</Text>
-              <Text style={styles.greetingSubtitle}>Welcome to <Text style={styles.sigaLogo}>Siga</Text></Text>
+              <Text style={styles.greeting}>
+                Hi, {this.state.userProfile.first_name}!
+              </Text>
+              <Text style={styles.greetingSubtitle}>
+                Welcome to <Text style={styles.sigaLogo}>Siga</Text>
+              </Text>
             </View>
             <Text style={styles.titleDisplay}>Your Products:</Text>
-              <View>{this.state.products.map((product, i) => {
+            <View>
+              {this.state.products.map((product, i) => {
                 return (
-                  <MonoText style={styles.productDisplay} key={i}> 🥕 {product}</MonoText>
+                  <MonoText style={styles.productDisplay} key={i}>
+                    {' '}
+                    🥕 {product}
+                  </MonoText>
                 )
-              })}</View>
-            <Text style={styles.titleDisplay}>Your IoT Device:</Text> 
-              <MonoText style={styles.infoDisplay}>Please Add A Device</MonoText>
-              <MonoText style={styles.infoDisplay}>In The Devices Tab</MonoText>
+              })}
+            </View>
+            <Text style={styles.titleDisplay}>Your IoT Device:</Text>
+            <MonoText style={styles.infoDisplay}>Please Add A Device</MonoText>
+            <MonoText style={styles.infoDisplay}>In The Devices Tab</MonoText>
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 
   _maybeRenderDevelopmentModeWarning() {
@@ -64,32 +75,34 @@ export default class HomeScreen extends React.Component {
         <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
           Learn more
         </Text>
-      );
+      )
 
       return (
         <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
+          Development mode is enabled, your app will be slower but you can use
+          useful development tools. {learnMoreButton}
         </Text>
-      );
+      )
     } else {
       return (
         <Text style={styles.developmentModeText}>
           You are not in development mode, your app will run at full speed.
         </Text>
-      );
+      )
     }
   }
 
   _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
+    WebBrowser.openBrowserAsync(
+      'https://docs.expo.io/versions/latest/guides/development-mode'
+    )
+  }
 
   _handleHelpPress = () => {
     WebBrowser.openBrowserAsync(
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -121,7 +134,7 @@ const styles = StyleSheet.create({
     shadowRadius: 15,
     shadowOpacity: 13,
     shadowColor: 'rgba(96,100,109, 0.8)',
-    shadowOffset: {width: 12, height: 12} 
+    shadowOffset: { width: 12, height: 12 },
   },
   getStartedContainer: {
     alignItems: 'center',
@@ -186,13 +199,13 @@ const styles = StyleSheet.create({
   userInfo: {
     fontWeight: 'bold',
     fontSize: 18,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   titleDisplay: {
     fontSize: 25,
     textAlign: 'center',
     paddingTop: 30,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   productDisplay: {
     fontSize: 17,
@@ -201,27 +214,26 @@ const styles = StyleSheet.create({
   infoDisplay: {
     fontSize: 17,
     fontWeight: '400',
-    fontStyle: 'italic'
+    fontStyle: 'italic',
   },
   greeting: {
     fontSize: 40,
     fontWeight: 'bold',
     fontFamily: 'serif',
-    textAlign: 'center'
-
+    textAlign: 'center',
   },
   greetingSubtitle: {
     fontSize: 25,
     fontWeight: 'bold',
     fontFamily: 'serif',
     textAlign: 'center',
-    marginBottom: 5
+    marginBottom: 5,
   },
   sigaLogo: {
     color: '#009fff',
-    textShadowColor:  '#29bbea',
+    textShadowColor: '#29bbea',
     fontWeight: 'bold',
     fontSize: 30,
-    fontStyle: 'italic'
-  }
-});
+    fontStyle: 'italic',
+  },
+})
